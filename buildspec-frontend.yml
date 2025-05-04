@@ -1,0 +1,35 @@
+version: 0.2
+
+env:
+  variables:
+    DIST_DIR: build
+  parameter-store:
+    REACT_APP_API_URL: /myapp/${ENV}/REACT_APP_API_URL
+    CLOUDFRONT_DISTRIBUTION_ID: /myapp/${ENV}/CLOUDFRONT_DISTRIBUTION_ID
+    S3_BUCKET: /myapp/${ENV}/FRONTEND_BUCKET
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo Installing dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Building the frontend...
+      - npm run build
+  post_build:
+    commands:
+      - echo Deploying to S3 bucket $S3_BUCKET...
+      - aws s3 sync $DIST_DIR s3://$S3_BUCKET --delete
+      - echo Invalidating CloudFront cache...
+      - >
+        aws cloudfront create-invalidation
+        --distribution-id $CLOUDFRONT_DISTRIBUTION_ID
+        --paths "/*"
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: $DIST_DIR
