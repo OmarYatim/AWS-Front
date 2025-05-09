@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    DIST_DIR: build
+    DIST_DIR: dist
   parameter-store:
     REACT_APP_API_URL: /myapp/${ENV}/REACT_APP_API_URL
     CLOUDFRONT_DISTRIBUTION_ID: /myapp/${ENV}/CLOUDFRONT_DISTRIBUTION_ID
@@ -14,11 +14,11 @@ phases:
       nodejs: 18
     commands:
       - echo Installing dependencies...
-      - npm install
+      - yarn install
   build:
     commands:
       - echo Building the frontend...
-      - npm run build
+      - yarn run build
   post_build:
     commands:
       - echo Deploying to S3 bucket $S3_BUCKET...
