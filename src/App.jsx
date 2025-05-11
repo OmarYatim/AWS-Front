@@ -7,7 +7,7 @@ function App() {
 
   const fetchInfo = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/infos`)
+      const response = await fetch(`http://${import.meta.env.VITE_API_URL}/infos`)
       const data = await response.json()
       setInfo(data)
     } catch (error) {
