@@ -4,7 +4,7 @@ env:
   variables:
     DIST_DIR: dist
   parameter-store:
-    REACT_APP_API_URL: /myapp/${ENV}/REACT_APP_API_URL
+    VITE_API_URL: /myapp/${ENV}/REACT_APP_API_URL
     CLOUDFRONT_DISTRIBUTION_ID: /myapp/${ENV}/CLOUDFRONT_DISTRIBUTION_ID
     S3_BUCKET: /myapp/${ENV}/FRONTEND_BUCKET
 
@@ -18,6 +18,7 @@ phases:
   build:
     commands:
       - echo Building the frontend...
+      - export VITE_API_URL=$VITE_API_URL
       - yarn run build
   post_build:
     commands:
