@@ -9,7 +9,6 @@ function App() {
     try {
       const response = await fetch(`https://${import.meta.env.VITE_API_URL}/infos`, {
         method: "GET",
-        mode: "no-cors",
         credentials: "omit"
       }).then(response => {
         if (!response.ok) {
