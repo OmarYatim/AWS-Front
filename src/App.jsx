@@ -11,7 +11,18 @@ function App() {
         method: "GET",
         mode: "no-cors",
         credentials: "omit"
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json(); // assuming your backend is returning JSON
       })
+      .then(data => {
+        console.log("Response Data:", data);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
       const data = await response.json()
       setInfo(data)
     } catch (error) {
