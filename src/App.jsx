@@ -10,22 +10,17 @@ function App() {
       const response = await fetch(`https://${import.meta.env.VITE_API_URL}/infos`, {
         method: "GET",
         credentials: "omit"
-      }).then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json(); // assuming your backend is returning JSON
-      })
-      .then(data => {
-        console.log("Response Data:", data);
-      })
-      .catch(error => {
-        console.error("Error:", error);
       });
-      const data = await response.json()
-      setInfo(data)
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("Response Data:", data);
+      setInfo(data);
     } catch (error) {
-      console.error("Error fetching /infos:", error)
+      console.error("Error fetching /infos:", error);
     }
   }
 
