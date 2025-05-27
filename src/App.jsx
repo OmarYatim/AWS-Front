@@ -30,7 +30,7 @@ function App() {
         <h1>Vite + React</h1>
         <div className="card">
           <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
+            your count is {count}
           </button>
           <button onClick={fetchInfo}>Fetch /infos</button>
           {info && <pre>{JSON.stringify(info, null, 2)}</pre>}
